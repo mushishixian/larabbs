@@ -45,11 +45,12 @@ class TopicsController extends Controller
         return redirect()->route('topics.show', $topic->id)->with('success', 'Created successfully.');
     }
 
-    public function edit(Topic $topic)
+    public function edit(Topic $topic, Category $category)
     {
         $this->authorize('update', $topic);
+        $categories = $category::all();
 
-        return view('topics.create_and_edit', compact('topic'));
+        return view('topics.create_and_edit', compact('topic', 'categories'));
     }
 
     public function update(TopicRequest $request, Topic $topic)
@@ -73,7 +74,7 @@ class TopicsController extends Controller
         $data = [
             'success' => false,
             'msg' => '上传失败!',
-            'file_path' => '' ,
+            'file_path' => '',
         ];
 
         if ($file = $request->upload_file) {
