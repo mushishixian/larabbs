@@ -82,6 +82,13 @@ body {
       margin-bottom: 0px;
     }
   }
+  .meta {
+    font-size: .9em;
+    color: #b3b3b3;
+  }
+  .reply-content {
+    margin: 6px 0;
+  }
 }
 
 /* Topic Index Page */
@@ -164,19 +171,17 @@ body {
   }
 }
 
-/* User profile page */
-.users-show-page {
-  .
-  .
-  ,
+/* Notifications badge */
 
-  .meta {
-    font-size: .9em;
-    color: #b3b3b3;
+.notifications-badge {
+  margin-top: -1;
+
+  .badge-fade {
+    background-color: #EBE8E8;
   }
-  .reply-content {
-    margin: 6px 0;
+
+  .badge-hint {
+    background-color: #d15b47 !important;;
   }
 }
-
 @import "topic_body";
