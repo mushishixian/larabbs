@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Redis;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -14,6 +16,7 @@ class User extends Authenticatable
     }
 
     use Traits\ActiveUserHelper;
+    use Traits\LastActivedAtHelper;
 
     /**
      * The attributes that are mass assignable.
@@ -53,7 +56,7 @@ class User extends Authenticatable
     public function setAvatarAttribute($path)
     {
         // 如果不是 `http` 子串开头，那就是从后台上传的，需要补全 URL
-        if ( ! starts_with($path, 'http')) {
+        if (!starts_with($path, 'http')) {
 
             // 拼接完整的 URL
             $path = config('app.url') . "/uploads/images/avatars/$path";
@@ -92,4 +95,6 @@ class User extends Authenticatable
         $this->save();
         $this->unreadNotifications->markAsRead();
     }
+
+
 }
