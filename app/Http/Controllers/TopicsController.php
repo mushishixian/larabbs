@@ -24,7 +24,7 @@ class TopicsController extends Controller
             ->paginate();
         $active_users = $user->getActiveUsers();
         $links = $link->getAllCached();
-        return view('topics.index', compact('topics', 'active_users'));
+        return view('topics.index', compact('topics', 'active_users','links'));
     }
 
     public function show(Request $request, Topic $topic)
