@@ -13,6 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+$api = app(Dingo\Api\Routing\Router::class);
+
+$api->version('v1', [
+    'namespace' => 'App\Http\Controller\Api',
+], function ($api) {
+
+    $api->group([
+        'middleware' => 'api.throttle',
+        'limit' => config('api.rate_limits.sign.limit'),
+        'expires' => config('api.rate_limits.sign.expires'),
+    ], function ($api) {
+        $api->get('version', function () {
+            return response('this is version v1');
+        });
+    });
 });
