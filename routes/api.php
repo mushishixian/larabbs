@@ -17,7 +17,7 @@ $api = app(Dingo\Api\Routing\Router::class);
 
 $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api',
-    'middleware' => 'serializer:array',
+    'middleware' => 'serializer:array|cors',
 ], function ($api) {
     //游客可以访问的接口
     $api->get('categories', 'CategoriesController@index')
