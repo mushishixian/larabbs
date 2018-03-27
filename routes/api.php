@@ -16,8 +16,12 @@ use Illuminate\Http\Request;
 $api = app(Dingo\Api\Routing\Router::class);
 
 $api->version('v1', [
-    'namespace' => 'App\Http\Controller\Api',
+    'namespace' => 'App\Http\Controllers\Api',
+    'middleware' => 'serializer:array',
 ], function ($api) {
+    //游客可以访问的接口
+    $api->get('categories', 'CategoriesController@index')
+        ->name('api.categories.index');
 
     $api->group([
         'middleware' => 'api.throttle',
