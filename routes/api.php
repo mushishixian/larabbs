@@ -23,6 +23,8 @@ $api->version('v1', [
     $api->get('categories', 'CategoriesController@index')
         ->name('api.categories.index');
 
+    $api->get('topics','TopicsController@index');
+
     $api->group([
         'middleware' => 'api.throttle',
         'limit' => config('api.rate_limits.sign.limit'),
