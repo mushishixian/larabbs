@@ -23,7 +23,7 @@ $api->version('v1', [
     $api->get('categories', 'CategoriesController@index')
         ->name('api.categories.index');
 
-    $api->get('topics','TopicsController@index');
+    $api->get('topics', 'TopicsController@index');
 
     $api->group([
         'middleware' => 'api.throttle',
@@ -33,9 +33,11 @@ $api->version('v1', [
         $api->get('version', function () {
             return response('this is version v1');
         });
-        $api->post('verificationCodes','VerificationCodesController@store')
+        $api->post('verificationCodes', 'VerificationCodesController@store')
             ->name('api.verificationCodes.store');
-        $api->post('users','UsersController@store')
+        $api->post('users', 'UsersController@store')
             ->name('api.users.store');
+        $api->post('captchas', 'CaptchasController@store')
+            ->name('api.captchas.store');
     });
 });

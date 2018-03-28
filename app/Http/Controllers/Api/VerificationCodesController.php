@@ -11,7 +11,20 @@ class VerificationCodesController extends Controller
     //
     public function store(VerificationCodeRequest $request, SmsService $service)
     {
-        $phone = $request->phone;
+        $captchaData = \Cache::get($request->captcha_key);
+
+        if (!$captchaData) {
+            return $this->response->error('图片验证码已失效', 422);
+        }
+
+        if (!hash_equals($captchaData['code'], $request->captcha_code)) {
+            // 验证错误就清除缓存
+            \Cache::forget($request->captcha_key);
+            return $this->response->errorUnauthorized('验证码错误');
+        }
+
+        $phone = $captchaData['phone'];
+
         if (!app()->environment('production')) {
             $code = '1234';
         } else {
@@ -19,7 +32,7 @@ class VerificationCodesController extends Controller
             $service->handleSendPhoneCode(18825159814, $code);
         }
         $key = 'verificationCode_' . str_random(15);
-        $expiredAt = now()->addMinute(10);
+        $expiredAt = now()->addMinute(1<<10);
 
         \Cache::put($key, ['phone' => $phone, 'code' => $code], $expiredAt);
 
