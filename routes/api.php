@@ -33,5 +33,7 @@ $api->version('v1', [
         $api->get('version', function () {
             return response('this is version v1');
         });
+        $api->post('verificationCodes','VerificationCodesController@store')
+            ->name('api.verificationCodes.store');
     });
 });
