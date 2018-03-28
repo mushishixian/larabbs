@@ -35,5 +35,7 @@ $api->version('v1', [
         });
         $api->post('verificationCodes','VerificationCodesController@store')
             ->name('api.verificationCodes.store');
+        $api->post('users','UsersController@store')
+            ->name('api.users.store');
     });
 });
