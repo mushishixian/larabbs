@@ -37,6 +37,8 @@ $api->version('v1', [
             ->name('api.topics.delete');
         $api->get('users/{user}/topics', 'TopicsController@userIndex')
             ->name('api.users.topics.index');
+        $api->get('topics/{topic}', 'TopicsController@show')
+            ->name('api.topics.show');
         // 登录
         $api->post('authorizations', 'AuthorizationsController@store')
             ->name('api.authorizations.store');
