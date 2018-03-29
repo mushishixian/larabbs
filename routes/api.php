@@ -17,7 +17,7 @@ $api = app(Dingo\Api\Routing\Router::class);
 
 $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api',
-    'middleware' => 'serializer:array|cors',
+    'middleware' => ['serializer:array', 'cors', 'bindings'],
 ], function ($api) {
     $api->group([
         'middleware' => 'api.throttle',
@@ -27,7 +27,10 @@ $api->version('v1', [
         //游客可以访问的接口
         $api->get('categories', 'CategoriesController@index')
             ->name('api.categories.index');
-        $api->get('topics', 'TopicsController@index');
+        $api->get('topics', 'TopicsController@index')
+        ->name('api.topics.index');
+        $api->post('topics', 'TopicsController@store')
+            ->name('api.topics.store');
         // 登录
         $api->post('authorizations', 'AuthorizationsController@store')
             ->name('api.authorizations.store');
@@ -44,8 +47,9 @@ $api->version('v1', [
                 ->name('api.user.update');
             $api->post('images', 'ImagesController@store')
                 ->name('api.images.store');
-            $api->post('topics', 'TopicsController@store')
-                ->name('api.topics.store');
+
+            $api->patch('topics', 'TopicsController@update')
+                ->name('api.topics.update');
         });
     });
 
