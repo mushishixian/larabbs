@@ -45,8 +45,13 @@ $api->version('v1', [
         //回复
         $api->post('topics/{topics}/replies', 'RepliesController@store')
             ->name('api.replies.store');
-        $api->delete('topics/{topic}/replies/{reply}','RepliesController@destroy')
-        ->name('api.topics.replies.destroy');
+        $api->delete('topics/{topic}/replies/{reply}', 'RepliesController@destroy')
+            ->name('api.topics.replies.destroy');
+        $api->get('topics/{topic}/replies', 'RepliesController@index')
+            ->name('api.topics.replies.index');
+        $api->get('users/{user}/replies', 'RepliesController@userIndex')
+            ->name('api.users.replies.index');
+
         // 登录
         $api->post('authorizations', 'AuthorizationsController@store')
             ->name('api.authorizations.store');
