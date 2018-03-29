@@ -27,6 +27,8 @@ $api->version('v1', [
         //游客可以访问的接口
         $api->get('categories', 'CategoriesController@index')
             ->name('api.categories.index');
+
+        //文章
         $api->get('topics', 'TopicsController@index')
             ->name('api.topics.index');
         $api->post('topics', 'TopicsController@store')
@@ -39,6 +41,10 @@ $api->version('v1', [
             ->name('api.users.topics.index');
         $api->get('topics/{topic}', 'TopicsController@show')
             ->name('api.topics.show');
+
+        //回复
+        $api->post('topics/{topics}/replies', 'RepliesController@store')
+            ->name('api.replies.store');
         // 登录
         $api->post('authorizations', 'AuthorizationsController@store')
             ->name('api.authorizations.store');
