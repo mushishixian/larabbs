@@ -44,6 +44,8 @@ $api->version('v1', [
                 ->name('api.user.update');
             $api->post('images', 'ImagesController@store')
                 ->name('api.images.store');
+            $api->post('topics', 'TopicsController@store')
+                ->name('api.topics.store');
         });
     });
 

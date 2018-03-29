@@ -17,9 +17,9 @@ class TopicsController extends Controller
         if ($categoryId = $request->category_id) {
             $query->where('category_id', $categoryId);
         }
-//        if ($name = $request->name) {
-//            $query->where('name', 'like', $name);
-//        }
+        //        if ($name = $request->name) {
+        //            $query->where('name', 'like', $name);
+        //        }
         if ($title = $request->title) {
             $query->where('title', 'like', "%$title%");
         }
@@ -27,6 +27,15 @@ class TopicsController extends Controller
         $topics = $query->paginate($request->page_size);
 
         return $this->response->paginator($topics, new TopicTransformer());
+    }
+
+    public function store(TopicRequest $request, Topic $topic)
+    {
+        $topic->fill($request->all());
+        $topic->user_id = $this->user()->id;
+        $topic->save();
+
+        return $this->response->item($topic, new TopicTransformer())->setStatusCode(201);
     }
 
 }

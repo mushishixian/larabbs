@@ -25,6 +25,18 @@ class TopicRequest extends FormRequest
     {
         return [
             //
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
+            'category_id' => 'required|exist:categories,id',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'title' => '标题',
+            'body' => '话题内容',
+            'category_id' => '分类',
         ];
     }
 }
