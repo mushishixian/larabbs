@@ -28,9 +28,13 @@ $api->version('v1', [
         $api->get('categories', 'CategoriesController@index')
             ->name('api.categories.index');
         $api->get('topics', 'TopicsController@index')
-        ->name('api.topics.index');
+            ->name('api.topics.index');
         $api->post('topics', 'TopicsController@store')
             ->name('api.topics.store');
+        $api->patch('topics/{topic}', 'TopicsController@update')
+            ->name('api.topics.update');
+        $api->delete('topics/{topic}', 'TopicsController@delete')
+            ->name('api.topics.delete');
         // 登录
         $api->post('authorizations', 'AuthorizationsController@store')
             ->name('api.authorizations.store');
@@ -48,8 +52,6 @@ $api->version('v1', [
             $api->post('images', 'ImagesController@store')
                 ->name('api.images.store');
 
-            $api->patch('topics', 'TopicsController@update')
-                ->name('api.topics.update');
         });
     });
 
