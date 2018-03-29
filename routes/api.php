@@ -25,6 +25,14 @@ $api->version('v1', [
 
     $api->get('topics', 'TopicsController@index');
 
+    // 登录
+    $api->post('authorizations', 'AuthorizationsController@store')
+        ->name('api.authorizations.store');
+    $api->put('authorizations/current', 'AuthorizationsController@update')
+        ->name('api.authorizations.update');
+    $api->delete('authorizations/current', 'AuthorizationsController@destroy')
+        ->name('api.authorizations.destroy');
+
     $api->group([
         'middleware' => 'api.throttle',
         'limit' => config('api.rate_limits.sign.limit'),
@@ -39,5 +47,7 @@ $api->version('v1', [
             ->name('api.users.store');
         $api->post('captchas', 'CaptchasController@store')
             ->name('api.captchas.store');
+
+
     });
 });
