@@ -45,6 +45,8 @@ $api->version('v1', [
         //回复
         $api->post('topics/{topics}/replies', 'RepliesController@store')
             ->name('api.replies.store');
+        $api->delete('topics/{topic}/replies/{reply}','RepliesController@destroy')
+        ->name('api.topics.replies.destroy');
         // 登录
         $api->post('authorizations', 'AuthorizationsController@store')
             ->name('api.authorizations.store');
